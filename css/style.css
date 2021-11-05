@@ -550,20 +550,3 @@ div {
   background-size: cover;
   background-repeat: no-repeat;
 }
-/*各背景の画像*/
-.img-bg-01 {
-  background-image: url('画像のURL');
-}
-.img-bg-02 {
-  background-image: url('画像のURL');
-}
-.img-bg-03 {
-  background-image: url('画像のURL');
-}
-.img-bg-04 {
-  background-image: url('画像のURL');
-}
-.img-bg-05 {
-  background-image: url('画像のURL');
-}
-
