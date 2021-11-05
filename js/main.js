@@ -238,10 +238,10 @@ $(function(){
   });
 
      //マウス座標を取得
- $(document).on("mousemove", function(e) {
+ 　$(document).on("mousemove", function(e) {
     mouseX = e.pageX;
     mouseY = e.pageY;
- });
+ 　});
 
  $("a").on({
   "mouseenter": function() {
@@ -268,8 +268,7 @@ $(function(){
     //カーソルの大きさの半分を引きます
     left: mouseX - (cWidth / 2),
     top: mouseY - (cWidth / 2)
-  })
- });
+  })});
 
  $(".hover").mouseleave(
   function () {

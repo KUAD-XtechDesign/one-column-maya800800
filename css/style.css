@@ -525,28 +525,3 @@ body{
   opacity: 0;
 }
 
-body,
-html {
-  height: 100%;
-  margin: 0 auto;
-  letter-spacing: 2px;
-  font-size: 10px;
-}
- 
-/*固定する背景*/
-div {
-  box-sizing: border-box;
-  color: #FFF;
-  font-size: 5rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  padding: 5%;
-}
-.parallax-bg {
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
