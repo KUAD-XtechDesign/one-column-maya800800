@@ -380,7 +380,7 @@ Contact
 Footer
 -------------------------------------------*/
 #footer {
-  color: #FCC92C;
+  background-color: #FCC92C;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
