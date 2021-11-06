@@ -90,7 +90,7 @@ Contactのタイトルが画面下にきたタイミングで、jQueryのfadeOut
 ※main.jsの「Accessの背景画像を表示」を参照
 */
 .bg {
-  background: url("../img/bg.jpg") center center repeat !important;
+  background: url("../img/bg.png") center center repeat !important;
   width: 100vw;
   height: 100vh;
   position: fixed;
