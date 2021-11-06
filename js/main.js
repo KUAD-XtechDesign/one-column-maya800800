@@ -113,7 +113,7 @@ $(function(){
             $('#side-btn').css({
               'transform': 'rotate(-90deg) translateY(0)'
             });
-          // #accessが表示されたら、#side-btnをスライドさせて非表示にする
+           // #accessが表示されたら、#side-btnをスライドさせて非表示にする
           } else {
             $('#side-btn').css({
               'transform': 'rotate(-90deg) translateY(60px)'
