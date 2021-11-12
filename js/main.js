@@ -277,18 +277,17 @@ $(function(){
   
   
   const images = [
-  "https://images.unsplash.com/photo-1516663713099-37eb6d60c825?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1950&q=80",
-  "https://images.unsplash.com/photo-1603366615917-1fa6dad5c4fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-  "https://images.unsplash.com/photo-1527607976958-7cbb4a6d0131?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=3343&q=80",
+   "https://images.unsplash.com/photo-1516663713099-37eb6d60c825?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1950&q=80",
+   "https://images.unsplash.com/photo-1603366615917-1fa6dad5c4fa?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+   "https://images.unsplash.com/photo-1527607976958-7cbb4a6d0131?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=3343&q=80",
   ];
 
 
  const texts = [
-  ["03h30 digital"],
-  ["We love motion, interactivity, minimalism and more "],
-  ["We make cool websites and webapp"],
-  
- ]
+   ["03h30 digital"],
+   ["We love motion, interactivity, minimalism and more "],
+   ["We make cool websites and webapp"],
+  ]
 
  rgbKineticSlider = new rgbKineticSlider({
 
@@ -338,6 +337,39 @@ $(function(){
   // textSubTitleLetterspacing : 3, // subtitle letter spacing
   // textSubTitleOffsetTop : 90, // subtitle offset top
   // mobileTextSubTitleOffsetTop : 40,
+ });
+
+ var bar = new ProgressBar.Line(splash_text, {//id名を指定
+	easing: 'easeInOut',//アニメーション効果linear、easeIn、easeOut、easeInOutが指定可能
+	duration: 1000,//時間指定(1000＝1秒)
+	strokeWidth: 0.2,//進捗ゲージの太さ
+	color: '#555',//進捗ゲージのカラー
+	trailWidth: 0.2,//ゲージベースの線の太さ
+	trailColor: '#bbb',//ゲージベースの線のカラー
+	text: {//テキストの形状を直接指定				
+		style: {//天地中央に配置
+			position: 'absolute',
+			left: '50%',
+			top: '50%',
+			padding: '0',
+			margin: '-30px 0 0 0',//バーより上に配置
+			transform:'translate(-50%,-50%)',
+			'font-size':'1rem',
+			color: '#fff',
+		},
+		autoStyleContainer: false //自動付与のスタイルを切る
+	},
+	step: function(state, bar) {
+		bar.setText(Math.round(bar.value() * 100) + ' %'); //テキストの数値
+	 }
+  });
+
+ //アニメーションスタート
+  bar.animate(1.0, function () {//バーを描画する割合を指定します 1.0 なら100%まで描画します
+  	$("#splash_text").fadeOut(10);//フェイドアウトでローディングテキストを削除
+  	$(".loader_cover-up").addClass("coveranime");//カバーが上に上がるクラス追加
+	 $(".loader_cover-down").addClass("coveranime");//カバーが下に下がるクラス追加
+	 $("#splash").fadeOut();//#splashエリアをフェードアウト
  });
 
   
