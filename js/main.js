@@ -205,9 +205,9 @@ $(function(){
     var
     cursor = $(".cursor"),
     follower = $(".follower"),
-    cWidth = 8, //カーソルの大きさ
+    cWidth = 6, //カーソルの大きさ
     fWidth = 40, //フォロワーの大きさ
-    delay = 10, //数字を大きくするとフォロワーがより遅れて来る
+    delay = 15, //数字を大きくするとフォロワーがより遅れて来る
     mouseX = 0, //マウスのX座標
     mouseY = 0, //マウスのY座標
     posX = 0, //フォロワーのX座標

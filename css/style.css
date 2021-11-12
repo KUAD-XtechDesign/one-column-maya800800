@@ -788,3 +788,41 @@ nav a.prev {
         left: 3rem;
     }
 }
+
+body {
+  width: 100%;
+}
+
+.btn_design {
+    font-size: 28px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 15px;
+    background-color: #333;
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    outline: 1px solid;
+    outline-color: #878787;
+    outline-offset: 0px;
+    text-shadow: none;
+    transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+/* マウスオーバー時 */
+.btn_design:hover {
+    border-color: #FFF;
+    box-shadow: inset 0 0 20px 
+    rgba(255, 255, 255, 0.5), 0 0 20px 
+    rgba(255, 255, 255, 0.2);
+    outline-color: transparent;
+    outline-offset: 12px;
+    text-shadow: 2px 2px 3px #000;
+    cursor: pointer;
+}
