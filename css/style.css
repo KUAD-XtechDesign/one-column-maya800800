@@ -1,0 +1,855 @@
+@charset "UTF-8";
+
+html {
+  font-size: 100%;
+}
+body {
+  color: #050507;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+}
+a {
+  color: #fff;
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+li {
+  list-style: none;
+}
+
+/* h1タグ用 */
+.site-title {
+  font-size: 6.25rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  margin: 100px 0;
+}
+/* h2タグ用 */
+.section-title {
+  border-bottom: solid 1px #fff;
+  /* 下線をテキストと同じ幅にあわせるために設定 */
+  display: inline-block;
+  font-size: 3.75rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  margin-bottom: 45px;
+}
+/* コンテンツ幅を設定するための共通クラス */
+.wrapper {
+  max-width: 800px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+/* MainとFooter全体を囲むクラス */
+.container {
+  background: #050507;
+  color: #fff;
+  text-align: center;
+}
+
+/*
+サイドボタン
+初期状態は「translateY(60px);」で画面の右側に隠しておく
+Galleryのタイトルが画面下にきたタイミングで、jQueryでCSSを変更してボタンをスライドしながら表示する
+Accessのタイトルが画面下にきたタイミングで、jQueryでCSSを変更してボタンをスライドしながら非表示にする
+※main.jsの「サイドボタンを表示」を参照
+*/
+#side-btn {
+  border: solid 1px #fff;
+  position: fixed;
+  right: -144px;
+  bottom: 200px;
+  transform: rotate(-90deg) translateY(60px);
+  transition: 0.6s;
+  z-index: 30;
+}
+#side-btn a {
+  width: 165px;
+  font-size: 0.875rem;
+  display: inline-block;
+  letter-spacing: 0.1em;
+  padding: 15px 0;
+  transition: 0.3s;
+}
+#side-btn a:last-of-type {
+  border-left: solid 1px #fff;
+}
+#side-btn a:hover {
+  opacity: 0.7;
+}
+
+/*
+Accessの背景画像
+初期状態は「display: none;」で非表示にしておく
+Accessのタイトルが画面下にきたタイミングで、jQueryのfadeInで表示する
+Contactのタイトルが画面下にきたタイミングで、jQueryのfadeOutで非表示にする
+「position: fixed;」で固定し「width: 100vw;」「height: 100vh;」で全画面表示する
+※main.jsの「Accessの背景画像を表示」を参照
+*/
+.bg {
+  background: url("../img/bg.png") center center repeat !important;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 10;
+}
+
+/*
+フェード表示
+InformationとGalleryの画像を下からふわっと表示させるためのクラス
+「transform: translate(0, 50%);」で下にさげた状態で、
+「opacity: 0;」で非表示にしておく
+*/
+.fadein {
+  opacity: 0;
+  transform: translate(0, 50%);
+  transition: 2s;
+}
+/*
+fadeinクラスの要素が画面下にきたタイミングで、jQueryのinviewにてshowクラスを追加して
+「transform: translate(0, 0);」と「opacity: 1;」で表示させる
+※main.jsの「フェード表示」を参照
+*/
+.fadein.show {
+  transform: translate(0, 0);
+  opacity: 1;
+}
+
+/*-------------------------------------------
+ヘッダー
+-------------------------------------------*/
+/*
+ヘッダーロゴ
+初期状態は「display: none;」で非表示にしておく
+所定のスクロール位置にきたらjQueryのfadeInで表示する
+※main.jsの「ロゴ、ハンバーガーメニューの表示」を参照
+*/
+.logo {
+  line-height: 1px;
+  position: fixed;
+  top: 35px;
+  left: 30px;
+  /* 一番上にくるように設定 */
+  z-index: 40;
+  display: none;
+}
+.logo a {
+  display: block;
+}
+
+/*
+ハンバーガ―メニュー
+初期状態は「display: none;」で非表示にしておく
+所定のスクロール位置にきたらjQueryのfadeInで表示する
+※main.jsの「ロゴ、ハンバーガーメニューの表示」を参照
+*/
+.hamburger {
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  /* 一番上にくるように設定 */
+  z-index: 40;
+  display: none;
+}
+.hamburger span {
+  width: 30px;
+  height: 1px;
+  background-color: #fff;
+  position: absolute;
+  left: 6px;
+  transition: 0.5s ease-in-out;
+}
+.hamburger span:nth-child(1) {
+  top: 11px;
+}
+.hamburger span:nth-child(2) {
+  top: 21px;
+}
+.hamburger span:nth-child(3) {
+  top: 31px;
+}
+.hamburger.active span:nth-child(1) {
+  top: 21px;
+  left: 6px;
+  transform: rotate(-45deg);
+}
+.hamburger.active span:nth-child(2),
+.hamburger.active span:nth-child(3) {
+  top: 21px;
+  transform: rotate(45deg);
+}
+#navi {
+  width: 100%;
+  background-color: #fff;
+  color: #050507;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  transform: translateY(-100%);
+  transition: 0.6s;
+  /* ロゴ、ハンバーガーより下でAccessページの背景画像よりも上にくるよう設定 */
+  z-index: 30;
+}
+#navi ul {
+  width: 100%;
+  background-color: #050507;
+  padding: 80px 0 30px 0;
+}
+#navi ul li {
+  padding: 10px 0;
+}
+#navi ul li a {
+  display: block;
+}
+/*
+メニュー表示
+ハンバーガーメニューがクリックされた際に、jQueryで#naviにactiveクラスを追加して、
+メニューを上から下にスライドさせて表示する
+*/
+#navi.active {
+  transform: translateY(0%);
+}
+
+/*-------------------------------------------
+Mainvisual
+-------------------------------------------*/
+#mainvisual {
+  display: flex;
+  justify-content: center;
+  /* スクロールで画像を拡大させた際に、横スクロールが出ないよう設定 */
+  overflow-x: hidden;
+}
+/*
+スクロールしたタイミングでjQueryにて画像を拡大するが、
+その際に画像が縮まないよう「flex-shrink: 0;」を設定する
+*/
+#mainvisual img {
+  width: calc(100%/3);
+  height: 100vh;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+
+/*-------------------------------------------
+Information
+-------------------------------------------*/
+#information {
+  margin-bottom: 140px;
+}
+#information .info-date-en {
+  display: block;
+  font-size: 1.5rem;
+}
+#information .info-time-en {
+  display: block;
+  font-size: 1.125rem;
+}
+#information .info-place {
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin: 20px 0;
+}
+#information .info-date-ja {
+  font-size: 1.125rem;
+}
+
+/*-------------------------------------------
+Gallery
+-------------------------------------------*/
+#gallery {
+  margin-bottom: 480px;
+}
+#gallery .list li {
+  margin-bottom: 60px;
+}
+#gallery .list li img {
+  width: 48%;
+}
+/* 奇数のliタグは左寄せ */
+#gallery .list li:nth-child(odd) {
+  text-align: left;
+}
+/* 偶数のliタグは右寄せ */
+#gallery .list li:nth-child(even) {
+  text-align: right;
+}
+
+/*-------------------------------------------
+Access
+-------------------------------------------*/
+/*
+「z-index: 20;」でコンテンツが背景画像の上にくるようにする
+※デフォルトのposition（static）では、z-indexを指定できないため。
+「position: relative;」設定する
+*/
+#access {
+  margin-bottom: 480px;
+  position: relative;
+  z-index: 20;
+}
+#access .place {
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+#access .address {
+  margin-bottom: 20px;
+}
+#access .contact {
+  margin-bottom: 30px;
+}
+#access .btn {
+  border: solid 1px #fff;
+  color: #fff;
+  display: inline-block;
+  padding: 15px 82px;
+  transition: 0.3s;
+}
+#access .btn:hover {
+  background-color: #050507;
+}
+
+/*-------------------------------------------
+Contact
+-------------------------------------------*/
+/*
+「z-index: 20;」でコンテンツが背景画像の上にくるようにする
+*/
+#contact {
+  margin-bottom: 200px;
+  position: relative;
+  z-index: 20;
+}
+#contact .btn {
+  width: 400px;
+  border: solid 1px #7d7d7d;
+  color: #fff;
+  display: block;
+  padding: 30px 0;
+  margin: 0 auto 20px auto;
+  position: relative;
+  transition: 0.3s;
+}
+/*
+ボタン矢印
+*/
+#contact .btn::before,
+#contact .btn::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  height: 1px;
+  background-color: #fff;
+  transition: 0.3s;
+}
+/*
+矢印の直線部分
+*/
+#contact .btn::before {
+  width: 120px;
+  top: 48px;
+}
+/*
+矢印の先端部分
+「rotate(25deg)」で角度をつける
+*/
+#contact .btn::after {
+  width: 15px;
+  top: 45px;
+  transform: rotate(25deg);
+}
+#contact .btn:hover {
+  opacity: 0.7;
+}
+#contact .btn:hover::before,
+#contact .btn:hover::after {
+  right: -50px;
+}
+
+/*-------------------------------------------
+Footer
+-------------------------------------------*/
+#footer {
+  background-color: #FCC92C;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: solid 1px #fff;
+  font-size: 0.75rem;
+  padding: 80px 30px;
+  text-align: left;
+  color: #050507;
+  
+}
+#footer p {
+  line-height: 1.6;
+}
+#footer .sns {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+#footer .sns li {
+  margin-right: 15px;
+}
+#footer .copyright {
+  display: flex;
+  align-items: center;
+}
+#footer .copyright li:last-child {
+  margin-left: 30px;
+}
+
+/*-------------------------------------------
+SP
+-------------------------------------------*/
+@media screen and (max-width: 900px) {
+  .site-title {
+    font-size: 3rem;
+    margin: 50px 0;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /*-------------------------------------------
+  Information
+  -------------------------------------------*/
+  #information {
+    margin-bottom: 80px;
+  }
+  #information .info-date-en,
+  #information .info-time-en,
+  #information .info-date-ja {
+    font-size: 1rem;
+  }
+  #information .info-place {
+    font-size: 2rem;
+  }
+
+  /*-------------------------------------------
+  Gallery
+  -------------------------------------------*/
+  #gallery {
+    margin-bottom: 280px;
+  }
+  #gallery .list li {
+    margin-bottom: 30px;
+  }
+  #gallery .list li img {
+    width: 100%;
+  }
+
+  /*-------------------------------------------
+  Access
+  -------------------------------------------*/
+  #access {
+    margin-bottom: 280px;
+  }
+
+  /*-------------------------------------------
+  Contact
+  -------------------------------------------*/
+  #contact .btn {
+    width: 100%;
+  }
+  /*
+  スマホの時は矢印を消す
+  */
+  #contact .btn::before,
+  #contact .btn::after {
+    content: none;
+  }
+
+  /*-------------------------------------------
+  Footer
+  -------------------------------------------*/
+  #footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 60px 30px;
+  }
+  #footer .sns {
+    margin-bottom: 30px;
+  }
+}
+
+
+body {
+  position: relative;
+  cursor: none;
+}
+ 
+body{
+  position: relative;
+  background:#f00;
+  cursor: none; /*もともとあるカーソルは非表示に*/
+  height:100vh;
+}
+
+/*カーソル要素*/
+#cursor{
+  position: fixed;
+
+  /*丸の大きさと色の指定*/
+  background: #fff;
+  border-radius:10px;
+  width: 20px;
+  height: 20px;
+  margin: -10px 0 0 -10px;/*真ん中にくるようにマイナスマージンで調整*/
+
+  z-index: 2;/*一番手前に来るように*/
+  pointer-events: none;/*クリックできなくなるのを防ぐため。noneで対応*/
+  opacity: 0;
+}
+
+/*ちょっと遅れてついてくるストーカー要素*/
+#stalker{
+  position: fixed;
+
+  /*丸の大きさと色の指定*/
+  background: #00f;
+  width: 60px;
+  height: 60px;
+  border-radius:30px;
+  margin: -30px 0 0 -30px;/*真ん中にくるようにマイナスマージンで調整*/
+  z-index: 1;/*カーソルの後ろに来るように*/
+  pointer-events: none;/*クリックできなくなるのを防ぐため。noneで対応*/
+  opacity: 0;
+}
+
+/* demo css */
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 15px;
+}
+
+body {
+  margin: 0;
+  --color-text: #aaa;
+  --color-bg: #fff;
+  --color-link: #ddd;
+  --color-link-hover: #fff;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Page Loader */
+.js .loading::before,
+.js .loading::after {
+  content: '';
+  position: fixed;
+  z-index: 1000;
+}
+
+.js .loading::before {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg);
+}
+
+.js .loading::after {
+  top: 50%;
+  left: 50%;
+  width: 60px;
+  height: 60px;
+  margin: -30px 0 0 -30px;
+  border-radius: 50%;
+  opacity: 0.4;
+  background: var(--color-link);
+  animation: loaderAnim 0.7s linear infinite alternate forwards;
+
+}
+
+@keyframes loaderAnim {
+  to {
+    opacity: 1;
+    transform: scale3d(0.5,0.5,1);
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-link);
+  outline: none;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-link-hover);
+  outline: none;
+}
+
+.message {
+  background: var(--color-text);
+  color: var(--color-bg);
+  padding: 1rem;
+  text-align: center;
+  opacity : 0;
+}
+
+.frame {
+  padding: 3rem 5vw;
+  text-align: center;
+  position: relative;
+  z-index: 1000;
+  opacity : 0;
+}
+
+.frame__title {
+  font-size: 1rem;
+  margin: 0 0 1rem;
+  font-weight: normal;
+  opacity : 0;
+}
+
+
+.frame__links {
+  display: inline;
+}
+
+.frame__links a:not(:last-child),
+.frame__demos a:not(:last-child) {
+  margin-right: 1rem;
+}
+
+.frame__demos {
+  margin: 1rem 0;
+}
+
+.frame__demo--current,
+.frame__demo--current:hover {
+  color: var(--color-text);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100vh - 13rem);
+  position: relative;
+  justify-content: flex-start;
+  align-items: center;
+  opacity : 1;
+}
+
+@media screen and (min-width: 53em) {
+  .message {
+    display: none;
+  }
+  .frame {
+    position: fixed;
+    text-align: left;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    display: grid;
+    align-content: space-between;
+    width: 100%;
+    max-width: none;
+    height: 100vh;
+    padding: 3rem;
+    pointer-events: none;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: auto auto auto;
+    grid-template-areas: 'title links'
+              '... ...'
+              '... demos';
+  }
+  .frame__title-wrap {
+    grid-area: title;
+    display: flex;
+  }
+  .frame__title {
+    margin: 0;
+  }
+  .frame__tagline {
+    position: relative;
+    margin: 0 0 0 1rem;
+    padding: 0 0 0 1rem;
+    opacity: 0.5;
+  }
+  .frame__demos {
+    margin: 0;
+    grid-area: demos;
+    justify-self: end;
+  }
+  .frame__links {
+    grid-area: links;
+    padding: 0;
+    justify-self: end;
+  }
+  .frame a {
+    pointer-events: auto;
+  }
+  .content {
+    height: 100vh;
+    justify-content: center;
+  }
+}
+
+
+/* plugin css */
+.rgbKineticSlider {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+}
+
+canvas {
+    position: absolute;
+    display : block;
+    top:0;
+    left : 0;
+}
+
+nav a {
+    color: var(--color-link-hover);
+    text-decoration: none;
+    /*margin-right: 14px;*/
+    position: absolute;
+    top: 50vh;
+    z-index: 1;
+  opacity : 0;
+}
+
+nav a:hover,
+nav a:focus {
+    color: var(--color-link-hover);
+    outline: none;
+}
+
+nav span {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-link-hover);
+    display: block;
+    margin-top: 7px;
+    -moz-transition: width 0.3s ease;
+    -webkit-transition: width 0.3s ease;
+    transition: width 0.3s ease;
+}
+
+nav a:hover span {
+    width: 0;
+}
+
+nav a.next {
+    right: 10vw;
+}
+
+nav a.prev {
+    left: 10vw;
+}
+
+.notice {
+    text-decoration: none;
+  opacity : 0;
+    /*margin-right: 14px;*/
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    z-index: 1;
+    color: var(--color-link);
+}
+
+@media screen and (max-width: 53em) {
+    nav a {
+        top : auto;
+        bottom : 3rem;
+    }
+    .notice {
+        bottom: auto;
+        top: 2rem;
+        left : 10vw;
+        left: 3rem;
+    }
+}
+
+body {
+  width: 100%;
+}
+
+.btn_design {
+    font-size: 28px;
+    width: 150px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: bold;
+    padding: 20px 15px;
+    background-color: #333;
+    color: #fff;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 1px solid transparent;
+    outline: 1px solid;
+    outline-color: #878787;
+    outline-offset: 0px;
+    text-shadow: none;
+    transition: all 1.2s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+/* マウスオーバー時 */
+.btn_design:hover {
+    border-color: #FFF;
+    box-shadow: inset 0 0 20px 
+    rgba(255, 255, 255, 0.5), 0 0 20px 
+    rgba(255, 255, 255, 0.2);
+    outline-color: transparent;
+    outline-offset: 12px;
+    text-shadow: 2px 2px 3px #000;
+    cursor: pointer;
+}
+
+.mouse {
+  margin: 30px 0px 0px 30px;
+  position   : relative;
+}
+.mouse:hover .word {
+  display: inline;
+}
+
+/*色は適当です。*/
+.word {
+  position   : absolute;
+  display: none;
+  padding: 2px;
+  color: aliceblue;
+  border-radius: 5px;
+  background-color:rgb(0, 255, 55);
+  width: 400px;
+  top: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  font-size: 40px;
+  text-align: center;
+}
+
